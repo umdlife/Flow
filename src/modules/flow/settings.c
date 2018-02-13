@@ -65,7 +65,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_AUTOPILOT_TYPE], "SYS_AP_TYPE");
 	global_data.param_access[PARAM_AUTOPILOT_TYPE] = READ_WRITE;
 
-	global_data.param[PARAM_SW_VERSION] = 1300;
+	global_data.param[PARAM_SW_VERSION] = 1342;
 	strcpy(global_data.param_name[PARAM_SW_VERSION], "SYS_SW_VER");
 	global_data.param_access[PARAM_SW_VERSION] = READ_WRITE;
 
@@ -73,7 +73,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_SYSTEM_SEND_STATE], "SYS_SEND_STATE");
 	global_data.param_access[PARAM_SYSTEM_SEND_STATE] = READ_WRITE;
 
-	global_data.param[PARAM_SYSTEM_SEND_LPOS] = 1;
+	global_data.param[PARAM_SYSTEM_SEND_LPOS] = 0; //1
 	strcpy(global_data.param_name[PARAM_SYSTEM_SEND_LPOS], "SYS_SEND_LPOS");
 	global_data.param_access[PARAM_SYSTEM_SEND_LPOS] = READ_WRITE;
 
@@ -86,7 +86,6 @@ void global_data_reset_param_defaults(void){
 	global_data.param_access[PARAM_USART2_BAUD] = READ_ONLY;
 
 	global_data.param[PARAM_USART3_BAUD] = 115200;
-//	global_data.param[PARAM_USART3_BAUD] = 921600;
 	strcpy(global_data.param_name[PARAM_USART3_BAUD], "USART_3_BAUD");
 	global_data.param_access[PARAM_USART3_BAUD] = READ_ONLY;
 
@@ -103,13 +102,20 @@ void global_data_reset_param_defaults(void){
 	global_data.param_access[PARAM_IMAGE_HEIGHT] = READ_ONLY;
 
 	global_data.param[PARAM_IMAGE_LOW_LIGHT] = 0;
-//	global_data.param[PARAM_IMAGE_LOW_LIGHT] = 1;
 	strcpy(global_data.param_name[PARAM_IMAGE_LOW_LIGHT], "IMAGE_L_LIGHT");
 	global_data.param_access[PARAM_IMAGE_LOW_LIGHT] = READ_WRITE;
 
 	global_data.param[PARAM_IMAGE_ROW_NOISE_CORR] = 1;
 	strcpy(global_data.param_name[PARAM_IMAGE_ROW_NOISE_CORR], "IMAGE_NOISE_C");
 	global_data.param_access[PARAM_IMAGE_ROW_NOISE_CORR] = READ_WRITE;
+
+	global_data.param[PARAM_IMAGE_WHITENING] = IMAGE_WHITENING_ALWAYS; // IMAGE_WHITENING_AUTO
+	strcpy(global_data.param_name[PARAM_IMAGE_WHITENING], "IMAGE_WHITEN");
+	global_data.param_access[PARAM_IMAGE_WHITENING] = READ_WRITE;
+
+	global_data.param[PARAM_IMAGE_WHITENING_QUALITY_THRESHOLD] = 100;
+	strcpy(global_data.param_name[PARAM_IMAGE_WHITENING_QUALITY_THRESHOLD], "IMAGE_WHIT_QTH");
+	global_data.param_access[PARAM_IMAGE_WHITENING_QUALITY_THRESHOLD] = READ_WRITE;
 
 	global_data.param[PARAM_IMAGE_TEST_PATTERN] = 0;
 	strcpy(global_data.param_name[PARAM_IMAGE_TEST_PATTERN], "IMAGE_TEST_PAT");
@@ -123,7 +129,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_GYRO_COMPENSATION_THRESHOLD], "GYRO_COMP_THR");
 	global_data.param_access[PARAM_GYRO_COMPENSATION_THRESHOLD] = READ_WRITE;
 
-	global_data.param[PARAM_SONAR_FILTERED] = 0;
+	global_data.param[PARAM_SONAR_FILTERED] = 1; // 0
 	strcpy(global_data.param_name[PARAM_SONAR_FILTERED], "SONAR_FILTERED");
 	global_data.param_access[PARAM_SONAR_FILTERED] = READ_WRITE;
 
@@ -134,6 +140,10 @@ void global_data_reset_param_defaults(void){
 	global_data.param[PARAM_SONAR_KALMAN_L2] = 6.2034f;
 	strcpy(global_data.param_name[PARAM_SONAR_KALMAN_L2], "SONAR_KAL_L2");
 	global_data.param_access[PARAM_SONAR_KALMAN_L2] = READ_WRITE;
+
+	global_data.param[PARAM_USB_DRAW_FLOW] = 1; // draw flow vectors on the video sent over USB
+	strcpy(global_data.param_name[PARAM_USB_DRAW_FLOW], "USB_DRAW_FLOW");
+	global_data.param_access[PARAM_USB_DRAW_FLOW] = READ_WRITE;
 
 	global_data.param[PARAM_USB_SEND_VIDEO] = 1; // send video over USB
 	strcpy(global_data.param_name[PARAM_USB_SEND_VIDEO], "USB_SEND_VIDEO");
@@ -172,22 +182,19 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_VALUE_THRESHOLD], "BFLOW_V_THLD");
 	global_data.param_access[PARAM_BOTTOM_FLOW_VALUE_THRESHOLD] = READ_WRITE;
 
-//	global_data.param[PARAM_BOTTOM_FLOW_FEATURE_THRESHOLD] = 100;
-	global_data.param[PARAM_BOTTOM_FLOW_FEATURE_THRESHOLD] = 40;
+	global_data.param[PARAM_BOTTOM_FLOW_FEATURE_THRESHOLD] = 25; // 50
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_FEATURE_THRESHOLD], "BFLOW_F_THLD");
 	global_data.param_access[PARAM_BOTTOM_FLOW_FEATURE_THRESHOLD] = READ_WRITE;
 
-	global_data.param[PARAM_BOTTOM_FLOW_HIST_FILTER] = 0;
-//	global_data.param[PARAM_BOTTOM_FLOW_HIST_FILTER] = 1;
+	global_data.param[PARAM_BOTTOM_FLOW_HIST_FILTER] = 1; // 0
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_HIST_FILTER], "BFLOW_HIST_FIL");
 	global_data.param_access[PARAM_BOTTOM_FLOW_HIST_FILTER] = READ_WRITE;
 
-//	global_data.param[PARAM_BOTTOM_FLOW_GYRO_COMPENSATION] = 0;
-	global_data.param[PARAM_BOTTOM_FLOW_GYRO_COMPENSATION] = 0;
+	global_data.param[PARAM_BOTTOM_FLOW_GYRO_COMPENSATION] = 1; // 0
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_GYRO_COMPENSATION], "BFLOW_GYRO_COM");
 	global_data.param_access[PARAM_BOTTOM_FLOW_GYRO_COMPENSATION] = READ_WRITE;
 
-	global_data.param[PARAM_BOTTOM_FLOW_LP_FILTERED] = 0;
+	global_data.param[PARAM_BOTTOM_FLOW_LP_FILTERED] = 1; // 0
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_LP_FILTERED], "BFLOW_LP_FIL");
 	global_data.param_access[PARAM_BOTTOM_FLOW_LP_FILTERED] = READ_WRITE;
 
@@ -199,11 +206,11 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_PUB_RATE], "BFLOW_RATE");
 	global_data.param_access[PARAM_BOTTOM_FLOW_PUB_RATE] = READ_WRITE;
 
-	global_data.param[PARAM_EXPOSURE_MAX] = 500;
+	global_data.param[PARAM_EXPOSURE_MAX] = 125; // 500
 	strcpy(global_data.param_name[PARAM_EXPOSURE_MAX], "EXPOSURE_MAX");
 	global_data.param_access[PARAM_EXPOSURE_MAX] = READ_WRITE;
 
-	global_data.param[PARAM_GAIN_MAX] = 16;
+	global_data.param[PARAM_GAIN_MAX] = 8; // 16
 	strcpy(global_data.param_name[PARAM_GAIN_MAX], "GAIN_MAX");
 	global_data.param_access[PARAM_GAIN_MAX] = READ_WRITE;
 
@@ -235,7 +242,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_BRIGHT], "BRIGHT");
 	global_data.param_access[PARAM_BRIGHT] = READ_WRITE;
 
-	global_data.param[DEBUG_VARIABLE] = 1;
+	global_data.param[DEBUG_VARIABLE] = 0; // 1
 	strcpy(global_data.param_name[DEBUG_VARIABLE], "DEBUG");
 	global_data.param_access[DEBUG_VARIABLE] = READ_WRITE;
 
